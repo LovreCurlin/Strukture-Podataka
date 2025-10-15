@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Marko\\Desktop\\Strukture-Podataka\\Zadatak 1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C4F7CC2D-65EF-4310-85B0-51112BA3529B}|Zadatak 1.vcxproj|C:\\Users\\Marko\\Desktop\\Strukture-Podataka\\Zadatak 1\\Zad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C4F7CC2D-65EF-4310-85B0-51112BA3529B}|Zadatak 1.vcxproj|solutionrelative:Zad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Zad.c",
+              "DocumentMoniker": "C:\\Users\\Marko\\Desktop\\Strukture-Podataka\\Zadatak 1\\Zad.c",
+              "RelativeDocumentMoniker": "Zad.c",
+              "ToolTip": "C:\\Users\\Marko\\Desktop\\Strukture-Podataka\\Zadatak 1\\Zad.c",
+              "RelativeToolTip": "Zad.c",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-10-12T19:02:37.29Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
