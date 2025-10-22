@@ -1,0 +1,4 @@
+﻿  zad.c
+C:\Users\Marko\Desktop\Strukture-Podataka\Zadatak 2\zad.c(28,7): warning C4101: 'choice': unreferenced local variable
+C:\Users\Marko\Desktop\Strukture-Podataka\Zadatak 2\zad.c(42,1): warning C4716: 'addToBegining': must return a value
+  Zadatak 2.vcxproj -> C:\Users\Marko\Desktop\Strukture-Podataka\Zadatak 2\x64\Debug\Zadatak 2.exe
