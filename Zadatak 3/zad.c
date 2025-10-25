@@ -12,6 +12,7 @@ E. čita listu iz datoteke.
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 typedef struct person* Position;                         // pokazivač na strukturu persoN
 
@@ -32,8 +33,9 @@ Position findPerson(Position, char* );                    // pronalaz prezime sa
 Position deletePerson(Position, char* );                  // brise osobu sa liste
 Position addAfter(Position, char*);
 Position addBefore(Position, char*);
-//int sortByLastName();
+int sortByLastName(Position);
 int putInFile(Position);
+Position importFromFile(Position);
 
 int main()
 {
@@ -107,6 +109,16 @@ int main()
             putInFile(Head);
             break;
         }
+        case 9:
+        {
+            sortByLastName(Head);
+            break;
+        }
+        case 10:
+        {
+            Head = importFromFile(Head);
+            break;
+        }
         case 0:
             puts("End of task");                      // izlaz iz programa
             break;
@@ -116,7 +128,8 @@ int main()
             break;
         }
 
-    } while (choice!= 0);                     // ponavljamo dok se ne unese F
+    }
+    while (choice!= 0);                       // ponavljamo dok se ne unese
 
     Position temp;
 
@@ -238,29 +251,30 @@ Position deletePerson(Position head, char* lastName)
 }
 Position addAfter(Position head, char* lastName)
 {
-   
 
-    Position findP = findPerson(head, lastName);      
+
+    Position findP = findPerson(head, lastName);
     if (!findP)
     {
         printf("%s not found\n", lastName);
         return head;
     }
 
-    Position newPerson = createPerson();                   
+    Position newPerson = createPerson();
     if (!newPerson) return head;
 
     Position p = head;
-    while (p != findP)                           
+    while (p != findP)
         p = p->Next;
 
     newPerson->Next = p->Next;
-    p->Next = newPerson;                                      
+    p->Next = newPerson;
     printf("Person added\n");
     return head;
-   
+
 
 }
+
 Position addBefore(Position head, char* lastName)
 {
 
@@ -282,11 +296,11 @@ Position addBefore(Position head, char* lastName)
         return head;
 
     }
-    
+
     Position p = head;
     while (p->Next != findP)
         p = p->Next;
-    
+
 
     newPerson->Next = p->Next;
     p->Next = newPerson;
@@ -295,6 +309,7 @@ Position addBefore(Position head, char* lastName)
 
 
 }
+
 int putInFile(Position head)
 {
     FILE* listOfPeople = fopen("list.txt", "w");
@@ -308,9 +323,104 @@ int putInFile(Position head)
     while (p != NULL)
     {
         fprintf(listOfPeople, "%s %s %d\n", p->firstName, p->lastName, p->yearOfBirth);
-            p = p->Next;
+        p = p->Next;
 
     }
     fclose(listOfPeople);
     return 0;
+}
+
+int sortByLastName(Position head)
+{
+
+    Position sorted = NULL;
+    bool swapped;
+    do
+    {
+        swapped = false;
+        Position before = NULL;
+        Position q = head;
+        Position p = head->Next;
+        Position temp = NULL;
+
+        while (p != NULL)
+        {
+            if (strcmp(q->lastName, p->lastName) > 0)
+            {
+
+                temp = p->Next;
+                p->Next = q;
+                q->Next = temp;
+
+                if (before == NULL)
+                    head = p;
+                else
+                    before->Next = p;
+
+
+                before = p;
+                p = q->Next;
+                swapped = true;
+
+            }
+            else
+            {
+                before = q;
+                q = p;
+                p = p->Next;
+            }
+        }
+        sorted = q;
+    } while(swapped);
+
+    printf("List successfully sorted by last name.\n");
+
+    return 0;
+}
+
+Position importFromFile(Position head)
+{
+    FILE* file = fopen("list.txt", "r");
+    if (!file)
+    {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    char firstName[20], lastName[20];
+    int yearOfBirth;
+char string[100];
+    int count = 0;
+
+    while (fgets(string, 100, file))
+    {
+
+        Position newPerson = (Position)malloc(sizeof(person));
+        if (!newPerson)
+        {
+            printf("Memory allocation error\n");
+            fclose(file);
+            return -1;
+        }
+        sscanf(string, "%s %s %d", newPerson->firstName, newPerson->lastName, &newPerson->yearOfBirth);
+
+        newPerson->Next = NULL;
+
+
+        if (head == NULL)
+        {
+            head = newPerson;
+        }
+        else
+        {
+            Position temp = head;
+            while (temp->Next != NULL)
+                temp = temp->Next;
+            temp->Next = newPerson;
+        }
+    }
+
+    fclose(file);
+    printf("List imported\n");
+    return head;
 }
