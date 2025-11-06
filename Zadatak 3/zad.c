@@ -1,4 +1,4 @@
-﻿/*
+/*
 3. Prethodnom zadatku dodati funkcije:
 A. dinamički dodaje novi element iza određenog elementa,
 B. dinamički dodaje novi element ispred određenog elementa,
@@ -373,7 +373,7 @@ int sortByLastName(Position head)
         sorted = q;
     } while(swapped);
 
-    printf("List successfully sorted by last name.\n");
+    printf("List sorted\n");
 
     return 0;
 }
@@ -389,7 +389,7 @@ Position importFromFile(Position head)
 
     char firstName[20], lastName[20];
     int yearOfBirth;
-char string[100];
+    char string[100];
     int count = 0;
 
     while (fgets(string, 100, file))
