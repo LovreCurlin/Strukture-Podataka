@@ -10,8 +10,7 @@ Napomena: Eksponenti u datoteci nisu nužno sortirani.
 #include <stdbool.h>
 
 typedef struct poly* Position;
-typedef struct poly
-{
+typedef struct poly{
     int coef;
     int pow;
     Position next;
@@ -25,8 +24,7 @@ int PrintPoly(Position head);
 int ReadFromFile(Position head, char* filename);
 Position CreateNode(int coef, int exp);
 
-int main()
-{
+int main(){
     poly head1 = { .coef = 0, .pow = 0, .next = NULL };
     poly head2 = { .coef = 0, .pow = 0, .next = NULL };
     poly sumP = { .coef = 0, .pow = 0, .next = NULL };
@@ -83,8 +81,7 @@ int PrintPoly(Position head){
 Position sortPoly(Position head){
     Position sorted = NULL;
     bool swapped;
-    do
-    {
+    do{
         swapped = false;
         Position before = NULL;
         Position q = head;
