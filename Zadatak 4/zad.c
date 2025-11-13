@@ -75,7 +75,6 @@ int PrintPoly(Position head){
         printf("%dx^%d ", head->coef, head->pow);
         head = head->next;
     }
-    printf("\n");
     return 0;
 }
 Position sortPoly(Position head){
