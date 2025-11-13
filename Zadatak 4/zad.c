@@ -34,36 +34,28 @@ int main()
 
     ReadFromFile(&head1, "poly1.txt");
     ReadFromFile(&head2, "poly2.txt");
-
     head1.next = sortPoly(head1.next);
     head2.next = sortPoly(head2.next);
-
     sum(head1.next, head2.next, &sumP);
     multiply(head1.next, head2.next, &mulP);
 
     printf("zbroj: ");
     PrintPoly(sumP.next);
-
     printf("umnozak: ");
     PrintPoly(mulP.next);
-
     return 0;
 }
 
-int ReadFromFile(Position head, char* filename)
-{
+int ReadFromFile(Position head, char* filename){
     FILE* pol = fopen(filename, "r");
 
-    if (!pol)
-    {
+    if (!pol){
         printf("error\n");
         return -1;
     }
-
     int coef, exp;
     Position q = head;
-    while (fscanf(pol, "%d %d", &coef, &exp) == 2)
-    {
+    while (fscanf(pol, "%d %d", &coef, &exp) == 2){
         Position newNode = CreateNode(coef, exp);
         q->next = newNode;
         q = newNode;
@@ -72,8 +64,7 @@ int ReadFromFile(Position head, char* filename)
     return 0;
 }
 
-Position CreateNode(int coef, int exp)
-{
+Position CreateNode(int coef, int exp){
     Position newNode = (Position)malloc(sizeof(poly));
     newNode->coef = coef;
     newNode->pow = exp;
@@ -81,19 +72,15 @@ Position CreateNode(int coef, int exp)
     return newNode;
 }
 
-int PrintPoly(Position head)
-{
-    while (head != NULL)
-    {
+int PrintPoly(Position head){
+    while (head != NULL){
         printf("%dx^%d ", head->coef, head->pow);
         head = head->next;
     }
     printf("\n");
     return 0;
 }
-Position sortPoly(Position head)
-{
-
+Position sortPoly(Position head){
     Position sorted = NULL;
     bool swapped;
     do
@@ -103,12 +90,9 @@ Position sortPoly(Position head)
         Position q = head;
         Position p = head->next;
         Position temp = NULL;
-
         while (p != NULL)
         {
-            if (q->pow < p->pow)
-            {
-
+            if (q->pow < p->pow){
                 temp = p->next;
                 p->next = q;
                 q->next = temp;
@@ -117,36 +101,30 @@ Position sortPoly(Position head)
                     head = p;
                 else
                     before->next = p;
-
-
+                    
                 before = p;
                 p = q->next;
                 swapped = true;
 
             }
-            else
-            {
+            else{
                 before = q;
                 q = p;
                 p = p->next;
             }
         }
-        sorted = q;
     }
     while(swapped);
     return head;
 }
-int sum(Position p1, Position p2, Position r)
-{
+
+int sum(Position p1, Position p2, Position r){
     Position last = r;
 
-    while (p1 != NULL && p2 != NULL)
-    {
-        if (p1->pow == p2->pow)
-        {
+    while (p1 != NULL && p2 != NULL){
+        if (p1->pow == p2->pow){
             int sumCoef = p1->coef + p2->coef;
-            if (sumCoef != 0)
-            {
+            if (sumCoef != 0){
                 Position newNode = CreateNode(sumCoef, p1->pow);
                 last->next = newNode;
                 last = newNode;
@@ -154,8 +132,7 @@ int sum(Position p1, Position p2, Position r)
             p1 = p1->next;
             p2 = p2->next;
         }
-        else if (p1->pow > p2->pow)
-        {
+        else if (p1->pow > p2->pow){
             Position newNode = CreateNode(p1->coef, p1->pow);
             last->next = newNode;
             last = newNode;
@@ -171,27 +148,23 @@ int sum(Position p1, Position p2, Position r)
     }
 
 
-    while (p1 != NULL)
-    {
+    while (p1 != NULL){
         Position newNode = CreateNode(p1->coef, p1->pow);
         last->next = newNode;
         last = newNode;
         p1 = p1->next;
     }
 
-    while (p2 != NULL)
-    {
+    while (p2 != NULL){
         Position newNode = CreateNode(p2->coef, p2->pow);
         last->next = newNode;
         last = newNode;
         p2 = p2->next;
     }
-
     return 0;
 }
 
-int multiply(Position p1, Position p2, Position r)
-{
+int multiply(Position p1, Position p2, Position r){
     Position last = r;
     Position temp;
 
@@ -202,7 +175,6 @@ int multiply(Position p1, Position p2, Position r)
         {
             int c= p1->coef * temp->coef;
             int e = p1->pow + temp->pow;
-
             Position newNode = CreateNode(c, e);
             last->next = newNode;
             last = newNode;
@@ -218,16 +190,13 @@ int multiply(Position p1, Position p2, Position r)
     return 0;
 }
 
-
-int addP(Position head)
-{
+int addP(Position head){
     if (!head)
         return 0;
 
     Position p = head;
 
-    while (p->next != NULL)
-    {
+    while (p->next != NULL){
         if (p->pow == p->next->pow)
         {
             p->coef += p->next->coef;
@@ -236,9 +205,8 @@ int addP(Position head)
             free(temp);
         }
         else
-        {
-            p = p->next;
-        }
+        p = p->next;
+        
     }
     return 0;
 }
