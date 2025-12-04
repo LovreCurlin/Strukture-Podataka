@@ -2,8 +2,8 @@
 predstavljaju pojedini racun. Na pocetku svake datoteke je zapisan datum u kojem vremenu je
 racun izdat u formatu YYYY-MM-DD. Svaki sljedeci red u datoteci predstavlja artikl u formatu
 naziv, kolicina, cijena. Potrebno je formirati vezanu listu racuna sortiranu po datumu. Svaki cvor
-vezane liste sadržava vezanu listu artikala sortiranu po nazivu artikla. Nakon toga potrebno je
-omoguciti upit kojim ce korisnik saznati koliko je novaca sveukupno potrošeno na specificni
+vezane liste sadrÅ¾ava vezanu listu artikala sortiranu po nazivu artikla. Nakon toga potrebno je
+omoguciti upit kojim ce korisnik saznati koliko je novaca sveukupno potroÅ¡eno na specificni
 artikl u odredenom vremenskom razdoblju i u kojoj je kolicini isti kupljen.
 */
 #define _CRT_SECURE_NO_WARNINGS
@@ -168,10 +168,7 @@ int importItems(ReceptPosition p, char* filename) {
 
 ItemPosition findItem(ReceptPosition p, char* item) {
     ItemPosition found = p->itemsHead;
-
-    if (found != NULL)
-        found = found->next;
-
+    found = found->next;
     while (found != NULL) {
         if (strcmp(found->item, item) == 0)
             return found;
@@ -179,7 +176,6 @@ ItemPosition findItem(ReceptPosition p, char* item) {
     }
     return NULL;
 }
-
 
 int specificItem(char* sitem, int date1, int date2,ReceptPosition p) {
     int count = 0;
