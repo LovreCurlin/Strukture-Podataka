@@ -1,6 +1,0 @@
-2023-03-01
-Kava 2 5.10
-Mlijeko 1 1.15
-Keks 4 1.45
-Cokolada 2 2.55
-Naranca 6 0.95
