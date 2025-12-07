@@ -17,53 +17,60 @@ typedef struct {           // definicija strukture student
     int score;             // intiger broj bodova koje je student ostvario
 } student;
 
-int numberOfStudents(FILE* );                     // prototip funkcije koja prebrojava koliko je studenata na listi
-int importStudents(FILE*, student*, int);         // prototip funkcije koja upisuje podatke iz datoteke u strukturu
+int numberOfStudents(char* );                     // prototip funkcije koja prebrojava koliko je studenata na listi
+int importStudents(char*, student*, int);         // prototip funkcije koja upisuje podatke iz datoteke u strukturu
 float relativeScore(int);                         // prototip funkcije koja racuna relativni broj bodova
+int print(student* , int);
 
-int main()
-{
-
+int main() {
     student* s;
     int i;                                                           
-    FILE* listOfStudents = fopen("Students.txt", "r");               // otvaranje datoteke za citanje
-
     int numberOfRows = numberOfStudents(listOfStudents);             // poziv funkcije koja vraca broj studenata na listi
-
     s = malloc(numberOfRows * sizeof(student));                      // dinamicki alociramo memoriju za s
+    if (!s) {
+	    printf("error with memory allocation");
+	    return EXIT_FAILURE;
+    }
+    importStudents(Students.txt, s, numberOfRows);                 // poziv funkcije koja upisuje podatke iz datoteke u strukturu
+    print(s, numberOfRows);
 
-    rewind(listOfStudents);                                          // vracamo pokazivac na pocetak datoteke
-    importStudents(listOfStudents, s, numberOfRows);                 // poziv funkcije koja upisuje podatke iz datoteke u strukturu
-
-    for (i = 0; i < numberOfRows; i++)
-        printf("%-10s %s \t\t%d   %.2f\n", s[i].firstName, s[i].lastName, s[i].score, relativeScore(s[i].score));   // ispis elemenata strukture
-
-    free(s);     // oslobadanje alociranu memoriju                                                     
-
-    return 0;
+    free(s);                                                      
+    return EXIT_SUCCESS;
 }
 
-int numberOfStudents(FILE* listOfStudents)     // funkcija koja preborjava studente
-{
-    char string[100];
+int numberOfStudents(char* fileName) {    // funkcija koja preborjava studente
+    FILE* list = fopen(fileName, "r");
+    if (!list) {
+	    printf("Error opening file\n");
+	    return EXIT_FAILURE;
+    }
+    char buffer[50];
     int count = 0;
-
-    while (fgets(string, 100, listOfStudents)) // cita svaku liniju iz datotek dok ne dode do kraja
-        count++;                               // brojaca koji broji svaki red
-
-    return count;                              // funkcija vraca broj redova(studenata)
+    while (fgets(buffer, 50, list))
+	    count++;
+    fclose(list);
+    return count;                // funkcija vraca broj redova(studenata)
 }
 
-int importStudents(FILE* listOfStudents, student* s, int numberOfRows)                       // funkcije koja upisuje podatke iz datoteke u strukturu
-{
-    int i;
-    for (i = 0; i < numberOfRows; i++)
-        fscanf(listOfStudents, "%s %s %d", s[i].firstName, s[i].lastName, &s[i].score);      // upis podataka u strukturu
-
-    return 0;
+int importStudents(char* fileName, student* s, int numberOfRows) {                      // funkcije koja upisuje podatke iz datoteke u strukturu
+    FILE* list = fopen(fileName, "r");
+    if (!list) {
+	    printf("Error opening file");
+	    return EXIT_FAILURE;
+    }
+    for (int i = 0;i < n; i++)
+	    fscanf(list, "%s %s %d", s[i].firstName, s[i].lastName, &s[i].score);
+    fclose(list);
+    return EXIT_SUCCESS;
 }
 
-float relativeScore(int score)               //funkcija koja racuna relativni broj bodova
-{
+float relativeScore(int score) {             //funkcija koja racuna relativni broj bodova
     return (float)score / maxPoints * 100;   // funkcija vraca rezultat tipa float 
 }
+
+int print(student* s, int n) {
+	for (int i = 0; i < n; i++)
+		printf("%s %s %d %.2f\n", s[i].firstName, s[i].lastName, s[i].score, relativeScore(s[i].score));
+	return EXIT_SUCCESS;
+}
+
