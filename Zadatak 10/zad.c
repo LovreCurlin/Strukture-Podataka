@@ -163,7 +163,6 @@ countryTreePosition createCountryTree(char* name)
 	new->left = NULL;
 	new->right = NULL;
 
-
 	new->city = malloc(sizeof(cityList));
 	new->city->next = NULL;
 
@@ -198,9 +197,7 @@ cityListPosition cityListAdd(cityListPosition head, char* name, int population)
 	while (curr->next && newCity->population > curr->next->population)
 		curr = curr->next;
 
-	while (curr->next &&
-		curr->next->population == newCity->population &&
-		strcmp(newCity->name, curr->next->name) > 0)
+	while (curr->next && curr->next->population == newCity->population && strcmp(newCity->name, curr->next->name) > 0)
 		curr = curr->next;
 
 	newCity->next = curr->next;
@@ -209,10 +206,7 @@ cityListPosition cityListAdd(cityListPosition head, char* name, int population)
 	return head;
 }
 
-
-
-int printCountryTree(countryTreePosition curr)
-{
+int printCountryTree(countryTreePosition curr){
 	if (!curr) return EXIT_SUCCESS;
 
 	printCountryTree(curr->left);
@@ -225,6 +219,7 @@ int printCountryTree(countryTreePosition curr)
 
 	return EXIT_SUCCESS;
 }
+
 int printCityList(countryTreePosition root) {
 
 	cityListPosition curr = root->city->next;
@@ -247,8 +242,8 @@ int find(countryListPosition head)
 		curr = curr->next;
 	if (curr)
 		printCity(curr->city, populationMin);
-
 }
+
 int printCity(cityTreePosition root, int MinPopulation)
 {
 	if (!root) return 0;
@@ -257,6 +252,7 @@ int printCity(cityTreePosition root, int MinPopulation)
 		printf("\t%s, %d\n", root->name, root->population);
 	printCity(root->right, MinPopulation);
 }
+
 
 
 
